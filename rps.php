@@ -1,6 +1,5 @@
 <?php 
-session_start();
-include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
+
 
 	abstract class RPS
 	{
@@ -63,14 +62,6 @@ include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
 	}
 
 
-	//checks database for previous entries and their results
-	function h_decide()
-	{
-		//$hist = pdo->query("SELECT playerChoice, winner FROM rpsentries WHERE ($_SESSION['turn'] - sessionTurn) < 3")->fetchAll();
-		//$r_ratio = count($hist) > 0 ? ()
-	}
-
-
 	if(!isset($_SESSION['entrylist']))
 		$_SESSION['entrylist'] = array();
 	if(!isset($_SESSION['playerScore']))
@@ -80,33 +71,15 @@ include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
 	if(!isset($_SESSION['turn']))
 		$_SESSION['turn'] = 0;
 
-
+function rps()
+{
+	session_start();
+	include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
 	$playerScore = $_SESSION['playerScore'];
 	$cpuScore = $_SESSION['cpuScore'];
 
 	$cpuChoice = rand(0,2);
 	
-
-	//cpu choice determined by:
-	//--history for up to last 3 moves
-	//--random selection
-
-	//rate is total number of correct guesses
-	$h_wins = 0;
-	$r_wins = 0;
-
-	//count keeps track of recent performance, increasing on hit
-	//and decreasing on miss
-	$h_count = 0;
-	$r_count = 0;
-
-
-	//$h_guess = h_decide();
-	//	$m_guess = m_decide();
-	$r_guess = rand(0,2);
-
-	$cpuChoice = $r_guess;
-
 
 	$playerChoice = 0;
 	$r_result = isset($_POST['rock'])? isset($_POST['rock']) : NULL;
@@ -168,5 +141,14 @@ include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
 		($entry->sessionTurn)  . ',' .
 		($sesh_id) . ');';
 	$pdo->exec($insert_sql);
+}
 
+
+
+if(isset($_POST['action']) && !empty($_POST['action'])) {
+    $action = $_POST['action'];
+    switch($action) {
+        case 'rps' : rps();break;
+        }
+    }
 ?>

@@ -1,15 +1,16 @@
 <?php
+	
+
+function stats()
+{
 	session_start();
 	include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
-
 	$array = $pdo->query("SELECT * FROM rpsentries")->fetchAll();
-	
 
 	$totalGames = count($array);
 	$totalWins = 0;
 	$userGames = 0;
 	$userWins = 0;
-
 
 	foreach ($array as $entry)
 	{	
@@ -30,8 +31,6 @@
 				$totalWins = $totalWins + 1;
 			}
 		}
-
-
 	}
 
 
@@ -58,6 +57,12 @@
 
 
 
+}
 
-	//games played with this user
+	if(isset($_GET['action']) && !empty($_GET['action'])) {
+    $action = $_GET['action'];
+    switch($action) {
+        case 'stats' : stats();break;
+        }
+    }
 ?>

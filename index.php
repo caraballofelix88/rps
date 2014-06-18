@@ -1,6 +1,6 @@
 <?php 
-session_start();
-$_SESSION['id'] = uniqid();
+include 'rps.php';
+include 'stats.php';
 ?>
 
 <html>
@@ -30,17 +30,14 @@ $_SESSION['id'] = uniqid();
 	</div>
 
 	<div id="result">
-		<!-- <?php include 'rps.php'; ?> -->
+		<!-- -->
 	</div>
 </div>
 
 
 <div id="right" style="float:right; margin-right: 10%;">
-<!-- <?php include 'stats.php'; ?> -->
+<!--  -->
 </div>
-
-
-
 
 </body>
 </html>
@@ -50,8 +47,8 @@ $_SESSION['id'] = uniqid();
 <script type='text/javascript'>
     $(document).ready(function()
     {
-      //  alert("JQuery is working! :D");
-       // $("div").css("border", "3px solid red");
+       // alert("script is working! :D");
+        //$("div").css("border", "3px solid red");
 
 		$("#buttons").find("button").click(function(event){
 			event.preventDefault();
@@ -62,7 +59,7 @@ $_SESSION['id'] = uniqid();
 
 		    $("#result").html('');
  
-		    var $data =  this.id + "=1";
+		    var $data = this.id + "=1&action=rps";
 
 		    $.ajax({
 		    	url: 'rps.php',
@@ -76,7 +73,8 @@ $_SESSION['id'] = uniqid();
 		    $.ajax({
 		    	url: 'stats.php',
 		    	type: 'GET',
-		    	datatype: 'http',
+		    	data: {action: 'stats'},
+		    	datatype: 'json',
 		    	success: function(message){
 		    		$("#right").html(message);}
 		    });
@@ -84,9 +82,9 @@ $_SESSION['id'] = uniqid();
 		});
 
     
-		// $(window).onunload(function{
-		// 	<?php unload(); ?>
-		// });
+		// // $(window).onunload(function{
+		// // 	<?php unload(); ?>
+		// // });
 
 	});
 
