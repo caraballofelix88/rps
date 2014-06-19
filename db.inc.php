@@ -1,8 +1,8 @@
 <?php
 
 	$host = "localhost";
-	$root = "root";
-	$password = "Rockman";//
+	$root = "";
+	$password = "";//
 
 	$db = "rps";
 
