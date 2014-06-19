@@ -3,14 +3,19 @@
 
 function stats()
 {
-	session_start();
 	include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
+	include $_SERVER["DOCUMENT_ROOT"] . '/rps/entry.php';
+	session_start();
+
+
 	$array = $pdo->query("SELECT * FROM rpsentries")->fetchAll();
 
 	$totalGames = count($array);
 	$totalWins = 0;
 	$userGames = 0;
 	$userWins = 0;
+	$currentGames = 0;
+	$currentWins = 0;
 
 	foreach ($array as $entry)
 	{	
@@ -34,13 +39,34 @@ function stats()
 	}
 
 
-	//total games ever played
+	//current games calculation
+	$curr_array = $_SESSION['entrylist'];
+
+	foreach($curr_array as $entry)
+	{
+		if($entry->winner == 1)
+		{
+			$currentWins = $currentWins + 1;
+		}
+		$currentGames = $currentGames + 1;
+	}
+
+
+	//formatting percentages
 	$winrate = ($totalGames > 0) ? floatval($totalWins / $totalGames) : 0;
 	$userWinrate = ($userGames > 0) ? floatval($userWins / $userGames) : 0;
+	$currentWinrate = ($currentGames > 0) ? floatval($currentWins / $currentGames) : 0;
 	$winrate = sprintf("%0.2f",$winrate);
 	$userWinrate = sprintf("%0.2f",$userWinrate);
+	$currentWinrate = sprintf("%0.2f",$currentWinrate);
 
 
+
+
+
+
+
+	//Total games
 	echo "<div style='background-color: #EEE0EE;'>";
 	echo "<h2>Total:</h2>";
 	echo "<p>games: $totalGames</p>";
@@ -48,6 +74,7 @@ function stats()
 	echo "<p>total winrate: $winrate</p>";
 	echo "</div>";
 
+	//Your games
 	echo "<div style='background-color: #EEEEE0;'>";
 	echo "<h2>Yours:</h2>";
 	echo "<p>games: $userGames</p>";
@@ -55,6 +82,13 @@ function stats()
 	echo "<p>your winrate: $userWinrate</p>";
 	echo "</div>";
 
+	//This session
+	echo "<div style='background-color: #DADDE0;'>";
+	echo "<h2>Currently:</h2>";
+	echo "<p>games: $currentGames</p>";
+	echo "<p>your won games: $currentWins</p>";
+	echo "<p>your winrate: $currentWinrate</p>";
+	echo "</div>";
 
 
 }

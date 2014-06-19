@@ -37,30 +37,13 @@
 	}
 
 
-	class Entry
-	{
-		public $cpuSelect;
-		public $playerSelect;
-		public $winner;
-		public $sessionTurn;
+	
 
-		function __construct($_playerSelect,$_cpuSelect,$_winner,$_sessionTurn)
-		{
-			$this->cpuSelect = $_cpuSelect;
-			$this->playerSelect = $_playerSelect;
-			$this->winner = $_winner;
-			$this->sessionTurn = $_sessionTurn;
-		}
-	}
-
-	function unload()
-	{
-		$_SESSION['entrylist'] = array();
-		$_SESSION['playerScore'] = 0;
-		$_SESSION['cpuScore'] = 0;
-		$_SESSION['turn'] = 0;
-	}
-
+function rps()
+{
+	session_start();
+	include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
+	include $_SERVER["DOCUMENT_ROOT"] . '/rps/entry.php';
 
 	if(!isset($_SESSION['entrylist']))
 		$_SESSION['entrylist'] = array();
@@ -71,10 +54,8 @@
 	if(!isset($_SESSION['turn']))
 		$_SESSION['turn'] = 0;
 
-function rps()
-{
-	session_start();
-	include $_SERVER["DOCUMENT_ROOT"] . '/rps/db.inc.php';
+
+
 	$playerScore = $_SESSION['playerScore'];
 	$cpuScore = $_SESSION['cpuScore'];
 

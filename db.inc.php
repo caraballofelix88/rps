@@ -1,18 +1,16 @@
 <?php
 
 	$host = "localhost";
-	$root = "";
-	$password = "";//
+	$root = "root";
+	$password = "Rockman";//
 
 	$db = "rps";
 
 	try
 	{
-		$pdo = new PDO('mysql:host=localhost', $root, $password);
-		$pdo->exec("CREATE DATABASE IF NOT EXISTS rps;");
-		$pdo->exec("USE rps;");
-
-		$pdo->exec("CREATE TABLE IF NOT EXISTS rps.rpsentries(
+		$create = new PDO('mysql:host=localhost', $root, $password);
+		$create->exec("CREATE DATABASE IF NOT EXISTS rps;");
+		$create->exec("CREATE TABLE IF NOT EXISTS rps.rpsentries(
 			id INT(11) AUTO_INCREMENT PRIMARY KEY,
 			playerSelection VARCHAR(10) NOT NULL,
 			cpuSelection VARCHAR(10) NOT NULL,
@@ -21,8 +19,11 @@
 			session_id VARCHAR(40) NOT NULL);");
 
 
-		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
+
+
+		$pdo = new PDO('mysql:host=localhost;dbname=rps', $root, $password);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		$pdo->exec('SET NAMES "utf8"');
 	}
 	catch(PDOException $e)

@@ -4,42 +4,42 @@ include 'stats.php';
 ?>
 
 <html>
-<head>
-<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<head>
+		<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</head>
 
-</head>
-<body>
+	<body>
 
-<div class="jumbotron" style="background-repeat: no-repeat; background-color: #E0EEEE; height: auto;">
-<h1>Rock Paper Scissors</h1>
-<p> funfunfun</p>
-</div>
+	<div class="jumbotron" style="background-repeat: no-repeat; background-color: #E0EEEE; height: auto;">
+		<h1>Rock Paper Scissors</h1>
+		<p> funfunfun</p>
+	</div>
+
+	<div class="container">
+		<div id="left" style="margin-left:10%; width: auto; float:left;">
+			<div id="buttons">
+				<div class="row" style="padding-bottom: 20px;">
+					<button type="button" id="rock" >Rock</button>
+					<button type="button" id="paper" >Paper</button>
+					<button type="button" id="scissors" >Scissors</button>
+				</div>
+			</div>
+
+			<div id="result">
+				<!-- -->
+			</div>
+		</div>
 
 
-<div id="left" style="margin-left:10%">
-	<div id="buttons">
-
-		<div class="row" style="padding-bottom: 20px;">
-			<button type="button" id="rock" >Rock</button>
-			<button type="button" id="paper" >Paper</button>
-			<button type="button" id="scissors" >Scissors</button>
+		<div id="right" style="width: 20%; float:right; margin-right: 10%;">
+		<!--  -->
 		</div>
 	</div>
 
-	<div id="result">
-		<!-- -->
-	</div>
-</div>
-
-
-<div id="right" style="float:right; margin-right: 10%;">
-<!--  -->
-</div>
-
-</body>
+	</body>
 </html>
 
 
@@ -47,9 +47,6 @@ include 'stats.php';
 <script type='text/javascript'>
     $(document).ready(function()
     {
-       // alert("script is working! :D");
-        //$("div").css("border", "3px solid red");
-
 		$("#buttons").find("button").click(function(event){
 			event.preventDefault();
 
@@ -81,12 +78,22 @@ include 'stats.php';
 		    
 		});
 
-    
-		// // $(window).onunload(function{
-		// // 	<?php unload(); ?>
-		// // });
+
+
+
 
 	});
 
+
+		$(window).unload(function(){
+		 	$.ajax({
+		 		url: 'unload.php',
+		 		type: 'POST',
+		 		async: false,
+		 		success: function(message){alert(message);}
+		 	});
+			//$.get('unload.php');
+		 	console.log("this works");
+		 });
 
 </script>
