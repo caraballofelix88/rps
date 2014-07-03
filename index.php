@@ -29,13 +29,13 @@ include 'stats.php';
 			</div>
 
 			<div id="result">
-				<!-- -->
+				<!--rps goes here-->
 			</div>
 		</div>
 
 
 		<div id="right" style="width: 20%; float:right; margin-right: 10%;">
-		<!--  -->
+		<!--stats go here-->
 		</div>
 	</div>
 
@@ -47,12 +47,10 @@ include 'stats.php';
 <script type='text/javascript'>
     $(document).ready(function()
     {
+
+    	//on button click, pass ajax request
 		$("#buttons").find("button").click(function(event){
 			event.preventDefault();
-
-			//if (request) {
-		   //     request.abort();
-		  //  }
 
 		    $("#result").html('');
  
@@ -65,16 +63,18 @@ include 'stats.php';
 		    	data: $data,
 		    	success: function(message){
 		        	$("#result").hide().html(message).fadeIn(1000);}
-		    });
-
-		    $.ajax({
+		    }).done(function(){
+		    	$.ajax({
 		    	url: 'stats.php',
 		    	type: 'GET',
 		    	data: {action: 'stats'},
 		    	datatype: 'json',
 		    	success: function(message){
 		    		$("#right").html(message);}
+		    	});
 		    });
+
+		    
 		    
 		});
 
@@ -84,7 +84,7 @@ include 'stats.php';
 
 	});
 
-
+    	//clears current games on session
 		$(window).unload(function(){
 		 	$.ajax({
 		 		url: 'unload.php',
@@ -92,8 +92,6 @@ include 'stats.php';
 		 		async: false,
 		 		success: function(message){alert(message);}
 		 	});
-			//$.get('unload.php');
-		 	console.log("this works");
 		 });
 
 </script>

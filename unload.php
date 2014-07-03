@@ -5,5 +5,6 @@
 			$_SESSION['playerScore'] = 0;
 			$_SESSION['cpuScore'] = 0;
 			$_SESSION['turn'] = 0;
+			$_SESSION['sessionNum'] = $_SESSION['sessionNum'] + 1;
 		//}
 ?>
